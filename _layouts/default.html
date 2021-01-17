@@ -9,21 +9,22 @@
 		<title>{{page.title}}</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
 	</head>
 	<body class="is-preload">
 		<!-- Header -->
 			<section id="header">
 				<header>
-					<span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
+					<span class="image avatar"><img src="{{'/images/avatar.jpg' | relative_url}}"  alt="" /></span>
 					<h1 id="logo"><a href="index">{{site.author}}</a></h1>
 					<p>{{site.description}}</p>
 				</header>
+				
 				<nav id="nav">
 					<ul>
-						<li><a href="#one" class="active">About me</a></li>
-						<li><a href="#two">Projects</a></li>
-						<li><a href="#three">CV</a></li>
+						<li><a href="#About" class="active">About me</a></li>
+						<li><a href="#Projects">Projects</a></li>
+						<li><a href="#CV">CV</a></li>
 					</ul>
 				</nav>
 				<footer>
@@ -41,7 +42,10 @@
 			<div id="wrapper">
 				<!-- Main -->
 				<section>
-					{{ content }}
+					<div id="main">
+						{{ content }}
+					</div>
+					
 				</section>
 				<!-- Footer -->
 					<section id="footer">
@@ -52,13 +56,13 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="{{'assets/js/jquery.min.js' | relative_url }}"></script>
+			<script src="{{'assets/js/jquery.scrollex.min.js' | relative_url }}"></script>
+			<script src="{{'assets/js/jquery.scrolly.min.js' | relative_url }}"></script>
+			<script src="{{'assets/js/browser.min.js' | relative_url }}"></script>
+			<script src="{{'assets/js/breakpoints.min.js' | relative_url }}"></script>
+			<script src="{{'assets/js/util.js' | relative_url }}"></script>
+			<script src="{{'assets/js/main.js' | relative_url }}"></script>
 
 	</body>
 </html>
