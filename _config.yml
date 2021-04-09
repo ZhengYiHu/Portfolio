@@ -23,7 +23,7 @@ email: zhengyi.hu.98@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
  Hello and welcome to my website! Here I will be sharing my personal projects and some Unity tools I've been developing!
 baseurl: "/Portfolio/" # the subpath of your site, e.g. /blog
-url: "https://zhengyi.hu" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://zhengyihu.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  ZhengYiHu
 
 author: Zheng Yi Hu
