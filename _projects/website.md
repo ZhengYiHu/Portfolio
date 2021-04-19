@@ -2,7 +2,7 @@
 layout: project
 thumbnail: /images/banner.png
 permalink: :title
-title: This Website!
+title: This Website
 subtitle: A personal website to share stuff with the world
 ---
 

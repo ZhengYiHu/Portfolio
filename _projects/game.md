@@ -17,7 +17,7 @@ The chill and cozy vibes the game infuses were a refreshing breeze for me since 
 
 ### Artstyle
 
-My not so optimal approach to the development process told me to start to work on the artstyle and focus on that before even designing a proper game loop and core mechanics... which made sense to me at the time since the main devvelopment drive of the game was the feelings aka **"vibes"** of pleasure and coziness to contrast the stressful routines I was stucked into. 
+My not so optimal approach to the development process told me to start to work on the artstyle and focus on that before even designing a proper game loop and core mechanics... which made sense to me at the time since the main development drive of the game was the feelings aka **"vibes"** of pleasure and coziness to contrast the stressful routines I was stucked into. 
 
 ![](./images/game_demo2.gif)
 
