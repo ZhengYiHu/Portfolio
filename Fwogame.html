@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Fwogame</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="favicon.ico" alt="" /></span><span class="title">Zheng Yi Hu</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="index.html#AboutMe">About Me</a></li>
+						<li><a href="index.html#Games">Games</a></li>
+						<li><a href="index.html#Resume">Resume</a></li>
+						<li><a href="index.html#Contacts">Contacts</a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Fwogame</h1>
+							<h2>A 3D Game to play around with procedural animations</h2>
+							<span class="image main"><img src="images/FwogameBanner.png" alt="" /></span>
+							<a href="https://zyhu.itch.io/fwogame" class="button primary icon solid fa-gamepad">Play on Itch.io</a>
+							<hr />
+							
+							<h1 id="inspiration">Inspiration</h1>
+							<p>The idea came from playing some of <a href="https://sokpop.co/">Sokpop</a>&#39;s little games, and I just wanted to make a small little project to replicate their signature leg animation as showcased in <a href="https://www.youtube.com/watch?v=2LbKuQsODHg">this video</a>.</p>
+							<h1 id="procedural-limbs-animations">Procedural Limbs Animations</h1>
+							<p>I used Unity&#39;s line renderer to create the limbs setting the origin on the character&#39;s body and the end at the target end effector which is going to be calculated according to various factors.</p>
+							<div class="row">
+								<div class="col-6 col-12-medium">
+									
+									<ol>
+									<li>First of all, the end effector will anchor to the terrain and will not move when the body of the character and the origin of the limb moves around.</li>
+									<li>I set a maximum <strong>Tollerance</strong> range around each end effector.</li>
+									<li>a <strong>Ray</strong> is cast from each origin point downwards to determine how much the character has moved from the anchored point.</li>
+									<li>If the Raycast&#39;s hit point exceeded the Tollerance range, then the legs end effectors will be repositioned to the new target, making the caracter effectively perform a <strong>step</strong>.</li>
+									<li>A small offset and other adjustments are added for the walking cycle to look more natural.</li>
+									<li>More animations are then added to other parts of the character, like body rotations and damping based on the current velocity and so on.</li>
+									</ol>
+								</div>
+								<div class="col-4 col-6-medium">
+									<img src="images/LegsTargeting.gif" alt="" />
+									<img src="images/MovingLegs.gif" alt="" />
+									<img src="images/BodyLeanDamping.gif" alt="" />]
+								</div>
+							</div>
+							<h1 id="More Screenshots">More Screenshots</h1>
+							<div class="row">
+								<div class="col-3 col-6"><span class="image fit"><img src="images/Fwogame1.png" alt="" /></span></div>
+								<div class="col-3 col-6"><span class="image fit"><img src="images/Fwogame2.png" alt="" /></span></div>
+								<div class="col-3 col-6"><span class="image fit"><img src="images/Fwogame3.png" alt="" /></span></div>
+							</div>
+
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Find me here</h2>
+								<ul class="icons">
+									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

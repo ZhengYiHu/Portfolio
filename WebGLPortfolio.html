@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>WebGL Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="favicon.ico" alt="" /></span><span class="title">Zheng Yi Hu</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="index.html#AboutMe">About Me</a></li>
+						<li><a href="index.html#Games">Games</a></li>
+						<li><a href="index.html#Resume">Resume</a></li>
+						<li><a href="index.html#Contacts">Contacts</a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>WebGL Website Simulator</h1>
+							<h2>A Unity WebGL app that simulates a webpage</h2>
+							<span class="image main"><img src="images/WebGLPortfolio.png" alt="" /></span>
+							<a href="WebGLPortfolio/index.html" class="button primary icon solid fa-gamepad">Visit my old WebGL Portfolio</a>
+							<hr />
+							<h1>Old Porfolio made in Unity WebGL</h1>
+
+							<p>The core idea was to make a portfolio that stand out from the usual static site drawing inspirations from all those fancy ThreeJS 3D interactive portfolios like <a href="https://bruno-simon.com/">Bruno Simon's</a> or <a href="http://www.rleonardi.com/">Robbi Leonardi's</a>.
+								I wanted to make something like a <b>Game menu</b> as main navigation interface and I though to myself that Unity's WebGL builds are not all that different from those webapps. So since I was already familiar with the engine I just started working on the main features
+								to simulate web pages interactions inside an Unity application.</p>
+							
+							<h1>Full screen template</h1>
+
+							<p>I created a new <a href="https://docs.unity3d.com/Manual/webgl-templates.html">WebGL Template</a> that would position my game in a Canvas object that will expand over the whole screen to simulate a FullScreen window.</p>
+							<p>The build is then hosted hosted on <a href="https://pages.github.com/">Github Pages</a> and is inspired by it&#39;s default static site system to add content in the form of <strong>Markdown</strong> files.</p>
+
+							<p>The template is available in my <a href="https://github.com/ZhengYiHu/WebGL_Portfolio/tree/main"><b>Github repository</b></a></p>
+
+							<hr />
+							<h1 id="markdown-parsing">Markdown Parsing</h1>
+							<div class="row">
+								<div class="col-6 col-12-medium">
+									<p> I used the library <a href="https://github.com/JimmyCushnie/FancyTextRendering">FancyTextRendering</a> to parse my MD files and store them into text boxes that support <strong>Rich Text</strong> rendering to speed up the addition of new content in my pages.</p>
+								</div>
+								<div class="col-6 col-12-medium">
+									<img src="images/markdownParsing.png" width="400"/>
+								</div>
+								
+							</div>
+							
+							<hr />
+							<h1 id="streaming-assets">Streaming Assets</h1>
+							<p>In order to limit the initial loading time of the project, I moved some of the heaviest files into Unity&#39;s <a href="https://docs.unity3d.com/Manual/StreamingAssets.html">Streaming Assets</a> folder, and fetch the file on runtime when needed through <strong>HTML requests</strong>.</p>
+							
+							<hr />
+							<h1 id="ci-cl">CI/CL</h1>
+							<p>In order to avoid rebuilding the project and deplyong each time a change is made, I set up a quick <a href="https://github.com/ZhengYiHu/WebGL_Portfolio/blob/main/.github/workflows/main.yml">Github Action</a> that would listen to the commits in the repository using <a href="https://game.ci/">Game CI</a>.</p>
+							<p>Each time a new push is detected, the action would trigger to make a new <strong>WebGL build</strong> and deploy it on the <strong>gh-pages</strong> branch, that is set up as source for the deoplyed website.</p>
+							<div class="row gtr-uniform">
+								<div class="col-6"><span class="image fit"><img src="images/githubAction.png" alt="" /></span></div>
+								<div class="col-6"><span class="image fit"><img src="images/githubPagesSettings.png" alt="" /></span></div>
+							</div>
+							<hr />
+							<h1 id="limitations-and-future-plans">Limitations and Future plans</h1>
+							<p>Since the view is effectively just an Unity game window, all the resemblances to a regular website are just simulated in the engine and many of those expected behaviours are still not implemented yet.
+							Some examples are:</p>
+							<ul>
+							<li>Text size adapting according to the view setting</li>
+							<li>Not being able to select and copy text</li>
+							<li>Not being able to zoom in and out by pinching and dragging on mobile</li>
+							<li>The back button would make the user leave the game view</li>
+							<li>Scrolling with middle mouse button doesn&#39;t work</li>
+							</ul>
+
+
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Find me here</h2>
+								<ul class="icons">
+									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

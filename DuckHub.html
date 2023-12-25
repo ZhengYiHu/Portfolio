@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Duck Hub</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="favicon.ico" alt="" /></span><span class="title">Zheng Yi Hu</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="index.html#AboutMe">About Me</a></li>
+						<li><a href="index.html#Games">Games</a></li>
+						<li><a href="index.html#Resume">Resume</a></li>
+						<li><a href="index.html#Contacts">Contacts</a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Duck Hub</h1>
+							<h2>A Server based multiplayer duck game made in Godot</h2>
+							<span class="image main"><img src="images/DuckHubBanner.png" alt="" /></span>
+							<a href="https://zyhu.itch.io/duckhub" class="button primary icon solid fa-gamepad">Play on Itch.io</a>
+							<hr />
+							<h1>Server Multiplayer Solutions</h1>
+
+							<p>First of all, I wanted the game to be as accessible as possible, so my main requirements for the game were:</p>
+						    <li> <b>No download required</b>: Playable direclty in the browser.</li>
+							<li> <b>No peer to peer</b>: Players can connect anytime to a server I'm hosting.</li>
+							<li> <b>Real time multiplayer</b>: connected players could see actions performed by others in real time, to interact with each other.</li>
+							<p>This is my first working on a real time server based multiplayer game, and I decided to do so on a new engine as an added learning experience.</p>
+							
+							<h2>Multiplayer synchronizer</h2>
+
+							<p>First approach I tried was using Godot's built in <a href="https://docs.godotengine.org/en/stable/classes/class_multiplayersynchronizer.html">Multiplayer Synchronizer</a>, which would handle a lot of the player's movement and spawning synchronization, but the solution only worked on peer to peer connections.</p>
+
+							<h2>ENet Multiplayer Peer</h2>
+
+							<p>Then I tried using <a href="https://docs.godotengine.org/en/stable/classes/class_enetmultiplayerpeer.html">ENetMultiplayerPeer</a> as peer of Godot's multiplayer's interface.
+								This solution uses <a href="http://enet.bespin.org/index.html">ENet</a>, which is a UDP connection library.</p>
+
+							<p><b> UPD </b> connections are perfect to handle movement packets since it's not necessary to receive all of them reliably and if packets are missing, I can always <b>interpolate the existing data</b> to fill in the missing data.
+								Everything worked well on regular builds, but when I tried to build for web, my client couldn't connect to the server anymore.</p>
+
+							<h1>Mixed Content in Browsers</h1>
+
+							<p>The reason why my clients couldn't connect to the my servers with ENetMultiplayerPeer is because the server is hosted on an <b>Unsecured HTTP connection</b>.
+								Whenever a website that is hosted in a secured HHTPS connection, tries to load media from an unsecured one, that is called <b><a href="https://web.dev/articles/what-is-mixed-content">Mixed Content</a></b> and modern browsers will try to block those for security reasons.</p>
+								
+							<p>This was exactly what was happening when I hosted my game on <b>Itch.io</b>, that is loaded over a secured connection, but tries to connect to my own unsecured server hosted on AWS.</p>
+
+							<h1>SSL Certificates</h1>
+
+							<p>The user could manually permit the data by allowing mixed content on their browsers, but that would go against my accessibility requirement.
+								What was left to do then was to secure the Server with an <b>SSL Certificate</b>.</p>
+							<p>I used <b><a href="https://letsencrypt.org/">Letsencrypt</a></b> to certify my self-signed certification and brough it over my client and server code.
+								I then changed my connection into <b><a href="https://docs.godotengine.org/en/stable/classes/class_websocketpeer.html">WebSocketPeer</a></b> instead of ENetMultiplayerPeer since UDP wouldn't be able to encrypt and decrypt packets by nature being an unreliable connection.</p>
+
+							<h1>Architecture</h1>
+							<span class="image main"><img src="images/ServerArchitecture.png" alt="" /></span>
+							<hr />
+							<h1>Dedicated Server</h1>
+							<h2>Server Synchronization</h2>
+
+							<p>Clients and Server communicate through <b><a href="https://en.wikipedia.org/wiki/Remote_procedure_call">RPCs</a></b> and standard interpolations is implemented to smoothen out client's movements.</p>
+							<p>Each time a player performs an action, an **RPC** is sent to the server that replicates the world state and sends the information of the current world state to every connected client, so that **everyone will be notified** of each other's changes.</p>
+
+							<h2>Client Interpolation</h2>
+
+							<p>If the server just sends to the client the positions of each agent in the world every server tick, in the client the movement of every other agent would look really <b>jittery</b>, so the movement of those characters need to be interpolated between the current position and the desired position.</p>
+							
+							<p>Issue is that it's <b>impossible</b> to know what is the desired position of other agents, since that's data that comes from the <b>Future</b>.
+								Therefore, in real time games, synchronization is often done by <b>rendering the world state</b> a few milliseconds <b>in the past</b>, so each client can store in a buffer the world states of the next few frames to properly interpolate the movements of every other agent.</p>
+
+							<h2>Clock Synchronization</h2>
+
+							<p>This is only possible when all clocks across server and clients agree on a <b>shared and unique time clock</b> used to determine what is in the past or in the future, so the clients cannot use their local machine's time.</p>
+
+							<p>This sounds trivial but some aspects to take in consideration are:
+								<li>Reliable time must come from the server</li>
+								<li>Clients cannot just use the server time they receive since lag delay must be taken into consideration</li>
+								<li>The delay can vary across the frames, so we need to find the average delay across a certain timeframe while also eliminating outlier lag spikes that might corrupt the average delay value</li></p>
+							<h1 id="More Screenshots">More Screenshots</h1>
+							<div class="row">
+								<div class="col-3 col-6"><span class="image fit"><img src="images/DuckHub1.png" alt="" /></span></div>
+								<div class="col-3 col-6"><span class="image fit"><img src="images/DuckHub2.png" alt="" /></span></div>
+								<div class="col-3 col-6"><span class="image fit"><img src="images/DuckHub2.png" alt="" /></span></div>
+								<div class="col-3 col-6"><span class="image fit"><img src="images/DuckHub3.png" alt="" /></span></div>
+							</div>
+						
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Find me here</h2>
+								<ul class="icons">
+									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+						</div>
+					</footer>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
