@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Lamp Maze</title>
+		<title>Tetris Evolutionary AI (NEAT)</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -44,23 +44,17 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Lamp Maze</h1>
-							<h2>A Jam Game made in one week for Brackeys Game Jam 2021.1</h2>
-							<span class="image main"><img src="images/LampMazeBanner.png" alt="" /></span>
-							<a href="https://zyhu.itch.io/lamp-maze" class="button primary icon solid fa-gamepad">Play on Itch.io</a>
+							<h1>Tetris Evolutionary AI (NEAT)</h1>
+							<h2>A Tetris AI Implementation using NEAT for my final year's thesis</h2>
+							<span class="image main"><img src="images/TetrisDemo.gif" alt="" /></span>
+							<a href="6CCS3PRJ_Final_Year0_2cm.pdf" class="button primary icon solid fa-gamepad">View the full paper</a>
 							<hr />
-							<h1>Brackeys Game Jam</h1>
-							<p>Lamp maze was a game made for the <a href="https://itch.io/jam/brackeys-5">Brackeys Game Jam 2021.1</a> game jam by me an a friend that goes by the name of <b>Victime</b></p>
-							<p>The Game page can be found <a href="https://zyhu.itch.io/lamp-maze">HERE</a>.
-								We placed <strong>#45</strong> out of <strong>#1881</strong> total entries, witch is a truly unexpected result for both of us given that it was our first ever game jam.
-								<a href="https://itch.io/jam/brackeys-5/rate/929233">(Jam Submission page)</a></p>
-							<h1 id="More Screenshots">More Screenshots</h1>
-							<div class="row">
-								<div class="col-3 col-6"><span class="image fit"><img src="images/LampMaze2.png" alt="" /></span></div>
-								<div class="col-3 col-6"><span class="image fit"><img src="images/LampMaze3.png" alt="" /></span></div>
-								<div class="col-3 col-6"><span class="image fit"><img src="images/LampMaze4.png" alt="" /></span></div>
-							</div>
-						
+							<h1 id="neat">NEAT</h1>
+							<p>This is my final year project in King&#39;s College London where I worked on a Tetris AI implementing the <strong><a href="https://en.wikipedia.org/wiki/Neuroevolution_of_augmenting_topologies">NEAT</a> algorithm</strong>.</p>
+							<p>Full Repository available <a href="https://github.com/ZhengYiHu/TetrisNeat"><b>HERE</b></a>.</p>
+							<p>The basic idea behind NEAT is to have a <strong>neural network</strong> that <strong>mutates over time</strong> to develop into one capable to compute more complex relationship between inputs and output through by evolving similarly to <strong>genetic evolution</strong>.</p>
+							<p>Since I was feeling confident about the project I decided to make my own twist and allow the AI to only read data through <strong>visual inputs</strong>, which means that it will <strong>only know if the pixel value</strong> is on or off at any given position and not any other relevant data like the height of the game state, or the Tetromino type it is currently holding.</p>
+							<p>However, the results were a bit underwhelmingh as the program didn&#39;t really manage to learn how to play the game properly within a few hours of training due to my hardware limitations.</p>
 						</div>
 					</div>
 
